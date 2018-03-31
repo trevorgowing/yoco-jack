@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
 
@@ -16,8 +17,34 @@ public class Main {
     URL url = new URL("https://s3-eu-west-1.amazonaws.com/yoco-testing/tests.json");
     ObjectMapper objectMapper = new ObjectMapper();
     List<Game> games = objectMapper.readValue(url.openStream(), new TypeReference<List<Game>>(){});
-    System.out.println(games);
-    System.out.println(cardValues);
+    for (Game game : games) {
+      System.out.println(game);
+      System.out.println("Calculated Winner: " + calculateWinner(game.getPlayerA(), game.getPlayerA()));
+      System.out.println("Expected Winner: " + game.isPlayerAWinner());
+      System.out.println();
+    }
+  }
+
+  private static boolean calculateWinner(List<String> handA, List<String> handB) {
+    Integer valueA = handA.stream()
+        .map(cardValues::get)
+        .mapToInt(Integer::intValue)
+        .sum();
+
+    Integer valueB = handB.stream()
+        .map(cardValues::get)
+        .mapToInt(Integer::intValue)
+        .sum();
+
+    if (valueA > 21) {
+      return false;
+    } else if (valueB > 21) {
+      return true;
+    } else if (Objects.equals(valueA, valueB)) {
+      return true;
+    } else {
+      return valueA > valueB;
+    }
   }
 
   static {
