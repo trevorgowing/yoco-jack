@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Main {
 
   private static final Map<String, Integer> cardValues;
+  private static final Map<String, Integer> suiteValues;
 
   public static void main(String[] args) throws IOException {
     URL url = new URL("https://s3-eu-west-1.amazonaws.com/yoco-testing/tests.json");
@@ -105,5 +106,13 @@ public class Main {
     cardValues.put("QS", 10);
     cardValues.put("KS", 10);
     cardValues.put("AS", 11);
+  }
+
+  static {
+    suiteValues = new HashMap<>();
+    suiteValues.put("C", 2);
+    suiteValues.put("D", 1);
+    suiteValues.put("H", 3);
+    suiteValues.put("S", 4);
   }
 }
