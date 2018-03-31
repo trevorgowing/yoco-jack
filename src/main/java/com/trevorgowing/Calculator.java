@@ -30,8 +30,8 @@ class Calculator {
     handA.sort(Collections.reverseOrder());
     handB.sort(Collections.reverseOrder());
 
-    int maxLength = Math.max(handA.size(), handB.size());
-    for (int i = 0; i < maxLength; i++) {
+    int minLength = Math.min(handA.size(), handB.size());
+    for (int i = 0; i < minLength; i++) {
       Card cardA = handA.get(i);
       Card cardB = handB.get(i);
       int gameValueComparisonComparison = Integer.compare(cardA.getGameValue(), cardB.getGameValue());
