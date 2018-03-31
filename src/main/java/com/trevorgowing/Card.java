@@ -19,11 +19,11 @@ class Card implements Comparable<Card> {
   private static final Map<String, Integer> suiteRanks;
   private static final Map<String, Integer> gameValues;
 
-  String suite;
-  int suiteRank;
-  String card;
-  int cardRank;
-  int gameValue;
+  private String suite;
+  private int suiteRank;
+  private String card;
+  private int cardRank;
+  private int gameValue;
 
   static Card fromString(String cardString) {
     if (cardString.length() < 2) {
