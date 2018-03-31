@@ -16,11 +16,13 @@ import lombok.ToString;
 class Card {
 
   private static final Map<String, Integer> cardValues;
+  private static final Map<String, Integer> gameValues;
   private static final Map<String, Integer> suiteValues;
 
   String suite;
   String card;
-  int value;
+  int cardValue;
+  int gameValue;
 
   static Card fromString(String cardString) {
     if (cardString.length() < 2) {
@@ -29,68 +31,87 @@ class Card {
     }
     String suite = cardString.substring(cardString.length() - 1, cardString.length());
     String card = cardString.substring(0, cardString.length() -1);
-    int value = cardValues.get(cardString);
-    return new Card(suite, card, value);
+    int cardValue = cardValues.get(card);
+    int gameValue = gameValues.get(cardString);
+    return new Card(suite, card, cardValue, gameValue);
   }
 
   static {
     cardValues = new HashMap<>();
-    cardValues.put("1C", 1);
-    cardValues.put("2C", 2);
-    cardValues.put("3C", 3);
-    cardValues.put("4C", 4);
-    cardValues.put("5C", 5);
-    cardValues.put("6C", 6);
-    cardValues.put("7C", 7);
-    cardValues.put("8C", 8);
-    cardValues.put("9C", 9);
-    cardValues.put("10C", 10);
-    cardValues.put("JC", 10);
-    cardValues.put("QC", 10);
-    cardValues.put("KC", 10);
-    cardValues.put("AC", 11);
-    cardValues.put("1D", 1);
-    cardValues.put("2D", 2);
-    cardValues.put("3D", 3);
-    cardValues.put("4D", 4);
-    cardValues.put("5D", 5);
-    cardValues.put("6D", 6);
-    cardValues.put("7D", 7);
-    cardValues.put("8D", 8);
-    cardValues.put("9D", 9);
-    cardValues.put("10D", 10);
-    cardValues.put("JD", 10);
-    cardValues.put("QD", 10);
-    cardValues.put("KD", 10);
-    cardValues.put("AD", 11);
-    cardValues.put("1H", 1);
-    cardValues.put("2H", 2);
-    cardValues.put("3H", 3);
-    cardValues.put("4H", 4);
-    cardValues.put("5H", 5);
-    cardValues.put("6H", 6);
-    cardValues.put("7H", 7);
-    cardValues.put("8H", 8);
-    cardValues.put("9H", 9);
-    cardValues.put("10H", 10);
-    cardValues.put("JH", 10);
-    cardValues.put("QH", 10);
-    cardValues.put("KH", 10);
-    cardValues.put("AH", 11);
-    cardValues.put("1S", 1);
-    cardValues.put("2S", 2);
-    cardValues.put("3S", 3);
-    cardValues.put("4S", 4);
-    cardValues.put("5S", 5);
-    cardValues.put("6S", 6);
-    cardValues.put("7S", 7);
-    cardValues.put("8S", 8);
-    cardValues.put("9S", 9);
-    cardValues.put("10S", 10);
-    cardValues.put("JS", 10);
-    cardValues.put("QS", 10);
-    cardValues.put("KS", 10);
-    cardValues.put("AS", 11);
+    cardValues.put("1", 1);
+    cardValues.put("2", 2);
+    cardValues.put("3", 3);
+    cardValues.put("4", 4);
+    cardValues.put("5", 5);
+    cardValues.put("6", 6);
+    cardValues.put("7", 7);
+    cardValues.put("8", 8);
+    cardValues.put("9", 9);
+    cardValues.put("10", 10);
+    cardValues.put("J", 11);
+    cardValues.put("Q", 12);
+    cardValues.put("K", 13);
+    cardValues.put("A", 14);
+  }
+
+  static {
+    gameValues = new HashMap<>();
+    gameValues.put("1C", 1);
+    gameValues.put("2C", 2);
+    gameValues.put("3C", 3);
+    gameValues.put("4C", 4);
+    gameValues.put("5C", 5);
+    gameValues.put("6C", 6);
+    gameValues.put("7C", 7);
+    gameValues.put("8C", 8);
+    gameValues.put("9C", 9);
+    gameValues.put("10C", 10);
+    gameValues.put("JC", 10);
+    gameValues.put("QC", 10);
+    gameValues.put("KC", 10);
+    gameValues.put("AC", 11);
+    gameValues.put("1D", 1);
+    gameValues.put("2D", 2);
+    gameValues.put("3D", 3);
+    gameValues.put("4D", 4);
+    gameValues.put("5D", 5);
+    gameValues.put("6D", 6);
+    gameValues.put("7D", 7);
+    gameValues.put("8D", 8);
+    gameValues.put("9D", 9);
+    gameValues.put("10D", 10);
+    gameValues.put("JD", 10);
+    gameValues.put("QD", 10);
+    gameValues.put("KD", 10);
+    gameValues.put("AD", 11);
+    gameValues.put("1H", 1);
+    gameValues.put("2H", 2);
+    gameValues.put("3H", 3);
+    gameValues.put("4H", 4);
+    gameValues.put("5H", 5);
+    gameValues.put("6H", 6);
+    gameValues.put("7H", 7);
+    gameValues.put("8H", 8);
+    gameValues.put("9H", 9);
+    gameValues.put("10H", 10);
+    gameValues.put("JH", 10);
+    gameValues.put("QH", 10);
+    gameValues.put("KH", 10);
+    gameValues.put("AH", 11);
+    gameValues.put("1S", 1);
+    gameValues.put("2S", 2);
+    gameValues.put("3S", 3);
+    gameValues.put("4S", 4);
+    gameValues.put("5S", 5);
+    gameValues.put("6S", 6);
+    gameValues.put("7S", 7);
+    gameValues.put("8S", 8);
+    gameValues.put("9S", 9);
+    gameValues.put("10S", 10);
+    gameValues.put("JS", 10);
+    gameValues.put("QS", 10);
+    gameValues.put("KS", 10);
+    gameValues.put("AS", 11);
   }
 
   static {

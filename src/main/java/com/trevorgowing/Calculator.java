@@ -8,11 +8,11 @@ class Calculator {
 
   boolean calculateWinner(List<Card> handA, List<Card> handB) {
     Integer valueA = handA.stream()
-        .mapToInt(Card::getValue)
+        .mapToInt(Card::getGameValue)
         .sum();
 
     Integer valueB = handB.stream()
-        .mapToInt(Card::getValue)
+        .mapToInt(Card::getGameValue)
         .sum();
 
     if (valueA > 21) {
@@ -28,11 +28,11 @@ class Calculator {
 
   private boolean calculateHighestCardWinner(List<Card> handA, List<Card> handB) {
     OptionalInt valueA = handA.stream()
-        .mapToInt(Card::getValue)
+        .mapToInt(Card::getGameValue)
         .max();
 
     OptionalInt valueB = handB.stream()
-        .mapToInt(Card::getValue)
+        .mapToInt(Card::getGameValue)
         .max();
 
     if (!valueA.isPresent()) {
