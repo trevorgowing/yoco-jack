@@ -15,13 +15,14 @@ import lombok.ToString;
 @AllArgsConstructor
 class Card implements Comparable<Card> {
 
-  private static final Map<String, Integer> cardValues;
+  private static final Map<String, Integer> cardRanks;
+  private static final Map<String, Integer> suiteRanks;
   private static final Map<String, Integer> gameValues;
-  private static final Map<String, Integer> suiteValues;
 
   String suite;
+  int suiteRank;
   String card;
-  int cardValue;
+  int cardRank;
   int gameValue;
 
   static Card fromString(String cardString) {
@@ -30,10 +31,11 @@ class Card implements Comparable<Card> {
           "Expected card of format number following by suite letter with no separator. e.g. 10D");
     }
     String suite = cardString.substring(cardString.length() - 1, cardString.length());
+    int suiteRank = suiteRanks.get(suite);
     String card = cardString.substring(0, cardString.length() -1);
-    int cardValue = cardValues.get(card);
+    int cardRank = cardRanks.get(card);
     int gameValue = gameValues.get(cardString);
-    return new Card(suite, card, cardValue, gameValue);
+    return new Card(suite, suiteRank, card, cardRank, gameValue);
   }
 
   @Override
@@ -42,21 +44,29 @@ class Card implements Comparable<Card> {
   }
 
   static {
-    cardValues = new HashMap<>();
-    cardValues.put("1", 1);
-    cardValues.put("2", 2);
-    cardValues.put("3", 3);
-    cardValues.put("4", 4);
-    cardValues.put("5", 5);
-    cardValues.put("6", 6);
-    cardValues.put("7", 7);
-    cardValues.put("8", 8);
-    cardValues.put("9", 9);
-    cardValues.put("10", 10);
-    cardValues.put("J", 11);
-    cardValues.put("Q", 12);
-    cardValues.put("K", 13);
-    cardValues.put("A", 14);
+    suiteRanks = new HashMap<>();
+    suiteRanks.put("C", 2);
+    suiteRanks.put("D", 1);
+    suiteRanks.put("H", 3);
+    suiteRanks.put("S", 4);
+  }
+
+  static {
+    cardRanks = new HashMap<>();
+    cardRanks.put("1", 1);
+    cardRanks.put("2", 2);
+    cardRanks.put("3", 3);
+    cardRanks.put("4", 4);
+    cardRanks.put("5", 5);
+    cardRanks.put("6", 6);
+    cardRanks.put("7", 7);
+    cardRanks.put("8", 8);
+    cardRanks.put("9", 9);
+    cardRanks.put("10", 10);
+    cardRanks.put("J", 11);
+    cardRanks.put("Q", 12);
+    cardRanks.put("K", 13);
+    cardRanks.put("A", 14);
   }
 
   static {
@@ -117,13 +127,5 @@ class Card implements Comparable<Card> {
     gameValues.put("QS", 10);
     gameValues.put("KS", 10);
     gameValues.put("AS", 11);
-  }
-
-  static {
-    suiteValues = new HashMap<>();
-    suiteValues.put("C", 2);
-    suiteValues.put("D", 1);
-    suiteValues.put("H", 3);
-    suiteValues.put("S", 4);
   }
 }

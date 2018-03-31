@@ -38,9 +38,9 @@ class Calculator {
       if (gameValueComparisonComparison != 0)  {
         return gameValueComparisonComparison > 0;
       } else {
-        int cardValueComparison = Integer.compare(cardA.getCardValue(), cardB.getCardValue());
-        if (cardValueComparison != 0) {
-          return cardValueComparison > 0;
+        int cardRankComparison = Integer.compare(cardA.getCardRank(), cardB.getCardRank());
+        if (cardRankComparison != 0) {
+          return cardRankComparison > 0;
         }
       }
     }
