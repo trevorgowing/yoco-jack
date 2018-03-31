@@ -34,9 +34,9 @@ class Calculator {
     for (int i = 0; i < minLength; i++) {
       Card cardA = handA.get(i);
       Card cardB = handB.get(i);
-      int gameValueComparisonComparison = Integer.compare(cardA.getGameValue(), cardB.getGameValue());
-      if (gameValueComparisonComparison != 0)  {
-        return gameValueComparisonComparison > 0;
+      int gameValueComparison = Integer.compare(cardA.getGameValue(), cardB.getGameValue());
+      if (gameValueComparison != 0)  {
+        return gameValueComparison > 0;
       } else {
         int cardRankComparison = Integer.compare(cardA.getCardRank(), cardB.getCardRank());
         if (cardRankComparison != 0) {
@@ -48,6 +48,15 @@ class Calculator {
   }
 
   private boolean calculateSuiteWinner(List<Card> handA, List<Card> handB) {
-    return true;
+    int minLength = Math.min(handA.size(), handB.size());
+    for (int i = 0; i < minLength; i++) {
+      Card cardA = handA.get(i);
+      Card cardB = handB.get(i);
+      int suiteRankComparison = Integer.compare(cardA.getSuiteRank(), cardB.getSuiteRank());
+      if (suiteRankComparison != 0)  {
+        return suiteRankComparison > 0;
+      }
+    }
+    throw new IllegalArgumentException("Players have exactly the same hands");
   }
 }

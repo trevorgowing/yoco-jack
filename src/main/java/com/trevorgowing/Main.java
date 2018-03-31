@@ -13,8 +13,10 @@ public class Main {
     URL url = new URL("https://s3-eu-west-1.amazonaws.com/yoco-testing/tests.json");
     ObjectMapper objectMapper = new ObjectMapper();
     List<Game> games = objectMapper.readValue(url.openStream(), new TypeReference<List<Game>>(){});
+    int gameCounter = 1;
+    int correctGameCounter = 0;
     for (Game game : games) {
-      System.out.println(game);
+      System.out.println("Game " + gameCounter++ + ":" + game);
       List<Card> handA = new ArrayList<>();
       List<Card> handB = new ArrayList<>();
 
@@ -24,9 +26,14 @@ public class Main {
       System.out.println(handA);
       System.out.println(handB);
 
-      System.out.println("Calculated Winner: " + new Calculator().calculateWinner(handA, handB));
-      System.out.println("Expected Winner: " + game.isPlayerAWins());
+      boolean calculatedWinner = new Calculator().calculateWinner(handA, handB);
+      System.out.println("Calculated Winner: " + calculatedWinner);
+      boolean expectedWinner = game.isPlayerAWins();
+      System.out.println("Expected Winner: " + expectedWinner);
+      correctGameCounter = calculatedWinner == expectedWinner ? correctGameCounter + 1
+          : correctGameCounter;
       System.out.println();
     }
+    System.out.println("Correct games: " + correctGameCounter);
   }
 }

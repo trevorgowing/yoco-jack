@@ -40,7 +40,12 @@ class Card implements Comparable<Card> {
 
   @Override
   public int compareTo(Card card) {
-    return Integer.compare(this.getGameValue(), card.getGameValue());
+    int gameValueComparison = Integer.compare(this.getGameValue(), card.getGameValue());
+    if (gameValueComparison != 0) {
+      return gameValueComparison;
+    } else {
+      return Integer.compare(this.getSuiteRank(), card.getSuiteRank());
+    }
   }
 
   static {
