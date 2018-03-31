@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.OptionalInt;
 
 public class Main {
 
@@ -21,7 +22,7 @@ public class Main {
     for (Game game : games) {
       System.out.println(game);
       System.out.println("Calculated Winner: " + calculateWinner(game.getPlayerA(), game.getPlayerA()));
-      System.out.println("Expected Winner: " + game.isPlayerAWinner());
+      System.out.println("Expected Winner: " + game.isPlayerAWins());
       System.out.println();
     }
   }
@@ -42,10 +43,39 @@ public class Main {
     } else if (valueB > 21) {
       return true;
     } else if (Objects.equals(valueA, valueB)) {
-      return true;
+      return calculateHighestCardWinner(handA, handB);
     } else {
       return valueA > valueB;
     }
+  }
+
+  private static boolean calculateHighestCardWinner(List<String> handA, List<String> handB) {
+    OptionalInt valueA = handA.stream()
+        .map(cardValues::get)
+        .mapToInt(Integer::intValue)
+        .max();
+
+    OptionalInt valueB = handB.stream()
+        .map(cardValues::get)
+        .mapToInt(Integer::intValue)
+        .max();
+
+    if (!valueA.isPresent()) {
+      throw new IllegalArgumentException("Hand A has no cards");
+    }
+    if (!valueB.isPresent()) {
+      throw new IllegalArgumentException("Hand B has no cards");
+    }
+
+    Integer maxA = valueA.getAsInt();
+    Integer maxB = valueB.getAsInt();
+    int comparison = maxA.compareTo(maxB);
+
+    return comparison == 0 ? calculateSuiteWinner(handA, handB) : comparison > 0;
+  }
+
+  private static boolean calculateSuiteWinner(List<String> handA, List<String> handB) {
+    return true;
   }
 
   static {

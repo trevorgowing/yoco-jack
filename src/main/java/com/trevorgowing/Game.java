@@ -1,17 +1,14 @@
 package com.trevorgowing;
 
-import java.io.Serializable;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Getter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-class Game implements Serializable {
+class Game {
 
   private List<String> playerA;
   private List<String> playerB;
@@ -25,7 +22,7 @@ class Game implements Serializable {
     return playerB;
   }
 
-  boolean isPlayerAWinner() {
+  boolean isPlayerAWins() {
     return playerAWins;
   }
 }
