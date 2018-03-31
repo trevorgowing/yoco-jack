@@ -22,7 +22,7 @@ public class Main {
       game.getPlayerB().forEach(s -> handB.add(Card.fromString(s)));
 
       System.out.println(handA);
-      System.out.println(handA);
+      System.out.println(handB);
 
       System.out.println("Calculated Winner: " + new Calculator().calculateWinner(handA, handB));
       System.out.println("Expected Winner: " + game.isPlayerAWins());

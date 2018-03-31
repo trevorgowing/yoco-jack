@@ -1,8 +1,8 @@
 package com.trevorgowing;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.OptionalInt;
 
 class Calculator {
 
@@ -27,26 +27,24 @@ class Calculator {
   }
 
   private boolean calculateHighestCardWinner(List<Card> handA, List<Card> handB) {
-    OptionalInt valueA = handA.stream()
-        .mapToInt(Card::getGameValue)
-        .max();
+    handA.sort(Collections.reverseOrder());
+    handB.sort(Collections.reverseOrder());
 
-    OptionalInt valueB = handB.stream()
-        .mapToInt(Card::getGameValue)
-        .max();
-
-    if (!valueA.isPresent()) {
-      throw new IllegalArgumentException("Hand A has no cards");
+    int maxLength = Math.max(handA.size(), handB.size());
+    for (int i = 0; i < maxLength; i++) {
+      Card cardA = handA.get(i);
+      Card cardB = handB.get(i);
+      int gameValueComparisonComparison = Integer.compare(cardA.getGameValue(), cardB.getGameValue());
+      if (gameValueComparisonComparison != 0)  {
+        return gameValueComparisonComparison > 0;
+      } else {
+        int cardValueComparison = Integer.compare(cardA.getCardValue(), cardB.getCardValue());
+        if (cardValueComparison != 0) {
+          return cardValueComparison > 0;
+        }
+      }
     }
-    if (!valueB.isPresent()) {
-      throw new IllegalArgumentException("Hand B has no cards");
-    }
-
-    Integer maxA = valueA.getAsInt();
-    Integer maxB = valueB.getAsInt();
-    int comparison = maxA.compareTo(maxB);
-
-    return comparison == 0 ? calculateSuiteWinner(handA, handB) : comparison > 0;
+    return calculateSuiteWinner(handA, handB);
   }
 
   private boolean calculateSuiteWinner(List<Card> handA, List<Card> handB) {

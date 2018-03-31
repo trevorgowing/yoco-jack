@@ -13,7 +13,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-class Card {
+class Card implements Comparable<Card> {
 
   private static final Map<String, Integer> cardValues;
   private static final Map<String, Integer> gameValues;
@@ -34,6 +34,11 @@ class Card {
     int cardValue = cardValues.get(card);
     int gameValue = gameValues.get(cardString);
     return new Card(suite, card, cardValue, gameValue);
+  }
+
+  @Override
+  public int compareTo(Card card) {
+    return Integer.compare(this.getGameValue(), card.getGameValue());
   }
 
   static {
